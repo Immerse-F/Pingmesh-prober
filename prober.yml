@@ -1,0 +1,9 @@
+# my global config
+
+
+rpc_listen_addr: 'XXXXXXXXXXXXX:6001'
+metrics_listen_addr: 'XXXXXXXXXXXXX:6002'
+node_name: '0'
+
+prober_targets:
+  - prober_type: icmp

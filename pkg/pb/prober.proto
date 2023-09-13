@@ -1,0 +1,118 @@
+syntax = "proto3";
+
+option go_package = "../pb";
+
+package pb;
+
+
+
+
+
+// ProberAgentIpReport
+message ProberAgentIpReportRequest{
+    string ip  =1; 
+}
+message ProberAgentIpReportResponse{
+    bool   is_success = 1;
+}
+
+
+
+// Targets
+message Targets {
+  string ping_cmd = 1; 
+  string target_region = 2;
+  //ip
+  string target_ip = 3;
+}
+
+message TargetConfig{
+  repeated Targets targets =1 ;
+  string slice_name = 2;
+}
+
+// The request message containing the worker_name.
+message ProberTargetsGetRequest {
+  //agent探测轮数
+  int64 agent_round = 1;
+  string local_ip = 2;
+  string local_node_name = 3;
+  int64 local_vlan_id = 4;
+}
+
+// The response message containing the ProberTargets
+message ProberTargetsGetResponse {
+  repeated TargetConfig  target_configs= 1;
+}
+
+// ProberResultOne
+message ProberResultOne{
+    string metric_name  =1;
+    string source_region  =2;
+    string target_region  =3;
+    string slice_name = 4;
+    int64 time_stamp  =5;
+    int32 value  =6;
+}
+// The request message of proberesult
+message ProberResultPushRequest{
+    repeated ProberResultOne prober_results =1;
+}
+message ProberResultPushResponse {
+  int32 success_num = 1;
+}
+
+
+
+message RefreshVlanRequest{
+  string local_ip = 1;
+  int64 local_vlan_id =2;
+  string local_node_name = 3;
+  int64 agent_round = 4;
+}
+message RefreshVlanResponse{
+  bool need_wait = 1;
+  bool need_switch = 2; 
+  int64 new_round = 3;
+}
+
+
+
+message NotifyVlanSwitchedRequest {
+    int32 vlan_id = 1;
+    string switch_time = 2;
+}
+message NotifyVlanSwitchedResponse {
+    bool success = 1;
+}
+
+
+
+// The prober agent report ip  service definition.
+service ProberAgentIpReport {
+  // Sends Get ProberTargets request
+  rpc ProberAgentIpReports (ProberAgentIpReportRequest) returns (ProberAgentIpReportResponse) {}
+}
+
+// The prober target service definition.
+service GetProberTarget {
+  // Sends Get ProberTargets request
+  rpc GetProberTargets (ProberTargetsGetRequest) returns (ProberTargetsGetResponse) {}
+}
+
+// The prober result service definition.
+service PushProberResult {
+  // Sends Get ProberTargets request
+  rpc PushProberResults (ProberResultPushRequest) returns (ProberResultPushResponse) {}
+}
+
+service VlanService {
+  rpc RefreshVlan(RefreshVlanRequest) returns (RefreshVlanResponse){};
+}
+
+service VlanSwitchNotify {
+  rpc NotifyVlanSwitched(NotifyVlanSwitchedRequest) returns (NotifyVlanSwitchedResponse) {}
+}
+
+
+
