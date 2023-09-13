@@ -1,7 +1,7 @@
 
 The project data has been anonymized.
 # Paper
-(PingMesh)[https://dl.acm.org/doi/pdf/10.1145/2829988.2787496]
+[PingMesh](https://dl.acm.org/doi/pdf/10.1145/2829988.2787496)
 
 # Scenario
 
