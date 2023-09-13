@@ -38,7 +38,7 @@ Modify ```metrics_listen_addr``` to the same IP + port.
 Modify the ```grpcServerAddress``` IP address in this file to the IP address of the Controller and the corresponding port.
 
 
-# Prometheus安装
+# Prometheus Installation
 
 After installation, configure the IP and port in the respective Prometheus folder under /usr/local with the yml file.
 Run 
